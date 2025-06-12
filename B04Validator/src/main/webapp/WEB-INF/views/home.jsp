@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Home 화면</title>
+		<title>home 화면</title>
 	</head>
 	<body>
 		<h2>스프링 부트 프로젝트</h2>
@@ -16,6 +16,5 @@
 		<ul>
 			<li><a href="./write.do">글쓰기 폼</a></li>
 		</ul>
-		
 	</body>
 </html>

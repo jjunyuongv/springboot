@@ -1,26 +1,15 @@
 package com.edu.springboot;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpServletRequest;
 
-/*
-JSP에서는 컨트롤러로 정의하기 위해 Servlet 클래스로 정의한 후
-매핑정보를 입력하였다. Spring boot에서는 아래와 같이 @Controller
-어노테이션을 부착하면 자동으로 컨트롤러 클래스로 정의된다. 또한 사용을
-위해 별도로 인스턴스를 생성할 필요없이 스프링 컨테이너가 시작시 자동으로
-인스턴스(빈)을 생성해준다.  
- */
 @Controller
 public class MainController
 {
-	//home 경로 매핑 
 	@RequestMapping("/")
 	public String home()
 	{
@@ -28,35 +17,96 @@ public class MainController
 	}
 	
 	@RequestMapping("/write.do")
-	public String insert1() {
+	public String insert1()
+	{
 		return "write";
 	}
 	
+	/*
+		Validator 인터페이스를 통한 폼값의 유효성 검증
+		Spring에서 사용하는 커맨드객체는 전송된 폼값을 한꺼번에 받아 
+		Model 인스턴스에 저장해준다. 만약 저장되는 속성명을 변경하고 싶다면
+		@ModelAttribute 어노테이션을 사용하면된다. 아래의 경우 boardDTO가
+		아닌 dto라는 이름으로 Model에 저장된다. 
+	 */
 	@RequestMapping("/writeAction1.do")
 	public String writeAction1(@ModelAttribute("dto") BoardDTO boardDTO,
-			BindingResult result) {
-		
+			BindingResult result)
+	{
+		//폼값검증에 성공한 경우 포워드 할 View의 경로 설정 
 		String page = "result";
 		System.out.println(boardDTO);
 		
+		//폼값검증을 위한 인스턴스 생성 
 		BoardValidator validator = new BoardValidator();
+		/*
+			폼값을 저장한 DTO 및 검증결과 전달을 위한 객체를 인수로 전달한다. 
+			여기서 validate()를 호출하여 검증을 진행하게된다. 
+		 */
 		validator.validate(boardDTO, result);
 		
-		if(result.hasErrors()) {
+		//폼값 검증에 실패한 경우 if문의 블럭 실행 
+		if (result.hasErrors())
+		{
+			//실패한 경우 재입력을 받기위해 쓰기페이지로 포워드 
 			page = "write";
-			System.out.println("검증 실패 반환값1:"+ result.toString());
+			System.out.println("검증 실패 반환값1:"+result.toString());
+			System.out.println("====================================");
 			
-			if(result.getFieldError("title")!=null) {
-				System.out.println("제목 검증1(에러코드):"
-						+result.getFieldError("title").getCode());
+			//제목 검증에 실패한경우 우리가 생성한 에러코드를 출력한다. 
+			if (result.getFieldError("title")!=null)
+			{
+				System.out.println("제목 검증1(에러코드):" 
+						+ result.getFieldError("title").getCode());
 			}
 			
-			if(result.getFieldError("content")!=null) {
-				System.out.println("제목 검증1(디폴트메세지):"
-						+result.getFieldError("content").getDefaultMessage());
+			//내용 검증에 실패한경우 디폴트 메세지를 출력한다
+			if (result.getFieldError("content")!=null)
+			{
+				System.out.println("내용 검증1(디폴트메시지):" 
+						+ result.getFieldError("content").getDefaultMessage());
 			}
 		}
+		return page;
+	}
+	
+	/*
+		어노테이션을 통한 검증이므로 폼값 저장을 위한 VO객체에 @Validated를 
+		추가한다. 
+	 */
+	@RequestMapping("/writeAction2.do")
+	public String writeAction2(@ModelAttribute("dto") @Validated BoardVO boardVO,
+			BindingResult result)
+	{
+		String page = "result";
+		System.out.println(boardVO);
 		
+		/*
+			검증을 위한 클래스는 별도로 정의할 필요가 없으므로 주석처리한다. 
+		 */
+//		BoardValidator validator = new BoardValidator();
+//		validator.validate(boardVO, result);
+		
+		if (result.hasErrors())
+		{
+			page = "write";
+			System.out.println("검증 실패 반환값2:"+result.toString());
+			System.out.println("====================================");
+			
+			//제목 검증에 실패한경우 우리가 생성한 에러코드를 출력한다. 
+			if (result.getFieldError("title")!=null)
+			{
+				System.out.println("제목 검증2(에러코드):" 
+						+ result.getFieldError("title").getCode());
+			}
+			
+			//내용 검증에 실패한경우 디폴트 메세지를 출력한다
+			if (result.getFieldError("content")!=null)
+			{
+				System.out.println("내용 검증2(디폴트메시지):" 
+						+ result.getFieldError("content").getDefaultMessage());
+			}
+		}
 		return page;
 	}
 }
