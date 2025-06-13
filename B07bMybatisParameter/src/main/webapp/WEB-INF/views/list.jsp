@@ -20,43 +20,34 @@
 	</script>
 	<!-- jQuery의 CDN 추가 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script>
-	function ajaxDelete(delete_id){
-		//삭제할 아이디를 콘솔에서 확인 
-		console.log("삭제id", delete_id);
-		if(confirm('삭제할까요?')){
-			//confirm에서 '확인'을 눌러 true가 반환되면 ajax함수 호출
-			$.ajax({
-				//요청URL(혹은 경로)
-				url : 'delete.do',
-				//전송방식
-				type : 'post',
-				//서버로 전송할 파라미터(JSON객체 형식으로 제작해야함)
-				data : {'id' : delete_id},
-				//콜백데이터의 형식(text, html, script, xml 등)
-				dataType : 'json',
-				//요청성공시 호출할 콜백 함수 정의 
-				success : function(rData){
-					//서버에서 작업을 종료한 후 웹브라우저에 출력해주는 내용을 콜백받게됨.
-					console.log(rData);
-					//삭제에 성공한 경우에는 alert를 띄우고 화면을 새로고침
-					if(rData.result=='success'){
-						alert('삭제되었습니다.');
-						//location.reload();
-						//$('#member_'+delete+id).hide();
-						$('#member_'+delete+id).remove();
-					} else {
-						alert('삭제실패');
-					}
-				},
-				error : function(eData){
-					console.error(eData);
-				}
-			});
-		}
-	}
-	</script>
 	<body>
+		<script>
+		function validateForm(fm){
+			let sFieldCnt = 0;
+			for(let i = 0 ; i < fm.searchField.length ; i++){
+				if(fm.searchField[i].checked==true)
+					sFieldCnt++;
+			}
+			if(sFieldCnt==0){
+				alert("한개 이상의 항목을 체크하셔야 합니다.")
+				return false;
+			}
+		}
+		</script>
+		<form onsubmit="return validateForm(this);">
+			<table>
+				<tr>
+					<td>
+						<input type="checkbox" name="searchField" value="id" />아이디
+						<input type="checkbox" name="searchField" value="name" />이름
+						<input type="checkbox" name="searchField" value="pass" />패스워드
+						<input type="text" name="searchKeyword" />
+						<input type="submit" value="검색" />
+					</td>
+				</tr>	
+			</table>
+		</form>
+	
 		<form name="frm"><!-- 자바스크립트를 이용한 삭제 -->
 			<input type="hidden" name="id">
 		</form>
@@ -79,8 +70,8 @@
 				<td>
 					<a href="edit.do?id=${row.id }">수정</a>
 					<%-- <a href="delete.do?id=${row.id }">삭제</a> --%>
-				<%-- 	<a href="javascript:;" onclick="deletePost('${row.id }');">삭제</a> --%>
-					<a href="javascript:ajaxDelete('${row.id }');">삭제</a>
+				 	<a href="javascript:;" onclick="deletePost('${row.id }');">삭제</a>
+					<%-- <a href="javascript:ajaxDelete('${row.id }');">삭제</a> --%>
 				</td>
 			</tr>
 			</c:forEach>

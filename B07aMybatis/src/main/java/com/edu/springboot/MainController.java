@@ -1,5 +1,8 @@
 package com.edu.springboot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,12 +70,30 @@ public class MainController
 		return "redirect:list.do";	
 	}
 	
-	//회원삭제
+//	//회원삭제
+//	@RequestMapping("/delete.do")
+//	public String member4(MemberDTO memberDTO) {
+//		int result = dao.delete(memberDTO);
+//		if(result==1) System.out.println("삭제되었습니다.");
+//		return "redirect:list.do";
+//	}
+	
+	// 비동기 방식으로 회원 삭제
 	@RequestMapping("/delete.do")
-	public String member4(MemberDTO memberDTO) {
+	public Map<String, String> member4(MemberDTO memberDTO) {
+		
 		int result = dao.delete(memberDTO);
-		if(result==1) System.out.println("삭제되었습니다.");
-		return "redirect:list.do";
+		Map<String, String> map = new HashMap<>();
+		if (result==1)
+		{
+			System.out.println("삭제되었습니다.");
+			map.put("result", "success");
+		} else
+		{
+			System.out.println("삭제실패");
+			map.put("result", "fail");
+		}
+		return map;
 	}
 	
 	
