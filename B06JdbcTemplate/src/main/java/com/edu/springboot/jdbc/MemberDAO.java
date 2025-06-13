@@ -130,8 +130,10 @@ public class MemberDAO implements IMemberService
 	@Override
 	public int delete(MemberDTO memberDTO)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM member WHERE id=?";
+		int result = jdbcTemplate.update(sql,
+				new Object[] {memberDTO.getId()});
+		return result;
 	}
 	
 }
