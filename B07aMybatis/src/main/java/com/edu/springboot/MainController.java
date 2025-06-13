@@ -32,13 +32,14 @@ public class MainController
 	}
 	
 	//회원정보추가 
-	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
+//	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
+	@GetMapping("/regist.do")
 	public String member1()
 	{
 		return "regist";
 	}
 	
-	@RequestMapping(value = "/regist.do", method = RequestMethod.POST)
+//	@RequestMapping(value = "/regist.do", method = RequestMethod.POST)
 	@PostMapping("/regist.do")
 	public String member6(MemberDTO memberDTO)
 	{
@@ -47,7 +48,8 @@ public class MainController
 		return "redirect:list.do";
 	}
 	
-	@RequestMapping(value = "/edit.do", method = RequestMethod.GET)
+//	@RequestMapping(value = "/edit.do", method = RequestMethod.GET)
+	@GetMapping("/edit.do")
 	public String member3(MemberDTO memberDTO, Model model)
 	{
 		memberDTO = dao.selectOne(memberDTO);
@@ -56,7 +58,8 @@ public class MainController
 	}
 	
 	//회원정보수정2 : 수정처리 
-	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+//	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+	@PostMapping("edit.do")
 	public String member7(MemberDTO memberDTO)
 	{
 		int result = dao.update(memberDTO);
