@@ -6,9 +6,19 @@
 		</encoder>
 	</appender>
 		
-		<logger name="com.edu.springboot" level="debug" />
-		
-		<root level="info">
-			<appender-ref ref="console" />
-		</root>
+	<logger name="com.edu.springboot" level="info" />
+	
+	<!-- log4j2-jdbc4 -->
+	<logger name="jdbc" level="OFF" />
+    <logger name="jdbc.sqlonly" level="OFF" />
+    <logger name="jdbc.sqltiming" level="DEBUG" />
+    <logger name="jdbc.resultset" level="OFF" />
+    <logger name="jdbc.resultsettable" level="DEBUG" />
+    <logger name="jdbc.connection" level="OFF" />
+	<!-- log4j2-jdbc4 -->
+	
+	
+	<root level="off">
+		<appender-ref ref="console" />
+	</root>
 </configuration>
