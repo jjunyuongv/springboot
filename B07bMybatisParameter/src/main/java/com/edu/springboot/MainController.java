@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.springboot.jdbc.IMemberService;
 import com.edu.springboot.jdbc.MemberDTO;
@@ -30,16 +30,21 @@ public class MainController
 	
 	//회원목록
 	@RequestMapping("/list.do")
-	public String member2(Model model, MemberDTO memberDTO) {
-		
+	public String member2(Model model, MemberDTO memberDTO)
+	{
+		/*
+			회원목록에서 검색어를 입력한 후 전송한 폼값은 DTO객체를 통해 한꺼번에
+			받아 저장한다. 
+		 */
 		System.out.println(memberDTO.getSearchField());
 		System.out.println(memberDTO.getSearchKeyword());
 		
+//		model.addAttribute("memberList", dao.select());
 		model.addAttribute("memberList", dao.select(memberDTO));
 		return "list";
 	}
 	
-	//회원정보추가 
+	//회원등록
 //	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
 	@GetMapping("/regist.do")
 	public String member1()
@@ -51,6 +56,10 @@ public class MainController
 	@PostMapping("/regist.do")
 	public String member6(HttpServletRequest req)
 	{
+		/*
+			회원등록 폼에서 전송한 파라미터를 request 내장객체를 통해 저장한다. 
+			개별적으로 전달받은 파라미터를 insert() 메서드로 전달한다. 
+		 */
 		String id = req.getParameter("id");
 		String pass = req.getParameter("pass");
 		String name = req.getParameter("name");
@@ -60,25 +69,29 @@ public class MainController
 		return "redirect:list.do";
 	}
 	
+	//회원수정
 //	@RequestMapping(value = "/edit.do", method = RequestMethod.GET)
 	@GetMapping("/edit.do")
-	public String member3(HttpServletRequest req, MemberDTO memberDTO,
-			Model model)
+	public String member3(HttpServletRequest req, MemberDTO memberDTO, Model model)
 	{
+		//폼값을 request 내장객체로 받은 후 전달한다.  
 		memberDTO = dao.selectOne(req.getParameter("id"));
 		model.addAttribute("dto", memberDTO);
+		
 		return "edit";
 	}
 	
-	//회원정보수정2 : 수정처리 
+	//수정처리  
 //	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	@PostMapping("edit.do")
 	public String member7(HttpServletRequest req)
 	{
+		//폼값을 request 내장객체를 통해 받는다. 
 		String id = req.getParameter("id");
 		String pass = req.getParameter("pass");
 		String name = req.getParameter("name");
 		
+		//폼값을 한꺼번에 DAO로 전달하기 위해 Map을 선언한다.
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("m_id", id);
 		paramMap.put("m_pass", pass);
@@ -89,36 +102,14 @@ public class MainController
 		return "redirect:list.do";	
 	}
 	
-	//회원삭제
+	//회원삭제 
 	@RequestMapping("/delete.do")
-	public String member4(HttpServletRequest req) {
+	public String member4(HttpServletRequest req)
+	{
 		String id = req.getParameter("id");
 		int result = dao.delete(id);
-		if(result==1) System.out.println("삭제되었습니다.");
+		if (result==1) System.out.println("삭제되었습니다.");
 		return "redirect:list.do";
 	}
-	
-//	// 비동기 방식으로 회원 삭제
-//		@RequestMapping("/delete.do")
-//		public Map<String, String> member4(MemberDTO memberDTO) {
-//			
-//			int result = dao.delete(memberDTO);
-//			Map<String, String> map = new HashMap<>();
-//			if (result==1)
-//			{
-//				System.out.println("삭제되었습니다.");
-//				map.put("result", "success");
-//			} else
-//			{
-//				System.out.println("삭제실패");
-//				map.put("result", "fail");
-//			}
-//			return map;
-//		}
-	
-	
-	
-	
-	
 	
 }

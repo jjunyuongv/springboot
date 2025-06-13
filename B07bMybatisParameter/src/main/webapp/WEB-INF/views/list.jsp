@@ -21,10 +21,14 @@
 	<!-- jQuery의 CDN 추가 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<body>
+		<!-- 검색폼추가 -->	
+		<!-- 퀴즈] 현재 체크항목에 체크하지 않은 상태에서 검색어를 입력하면 
+			에러가 발생한다. 따라서 하나의 항목 이상을 체크한 후 검색할 수 
+			있도록 Javascript를 추가하시오. -->
 		<script>
 		function validateForm(fm){
 			let sFieldCnt = 0;
-			for(let i = 0 ; i < fm.searchField.length ; i++){
+			for(let i=0 ; i<fm.searchField.length ; i++){
 				if(fm.searchField[i].checked==true)
 					sFieldCnt++;
 			}
@@ -35,19 +39,22 @@
 		}
 		</script>
 		<form onsubmit="return validateForm(this);">
-			<table>
-				<tr>
-					<td>
-						<input type="checkbox" name="searchField" value="id" />아이디
-						<input type="checkbox" name="searchField" value="name" />이름
-						<input type="checkbox" name="searchField" value="pass" />패스워드
-						<input type="text" name="searchKeyword" />
-						<input type="submit" value="검색" />
-					</td>
-				</tr>	
-			</table>
+		<table>
+		<tr>
+			<td>
+				<!-- 검색을 위한 필드(컬럼)를 2개이상 선택하기 위해 체크박스로
+				구성한다. 폼값은 List로 전송된다.  -->
+				<input type="checkbox" name="searchField" value="id" />아이디
+				<input type="checkbox" name="searchField" value="name" />이름
+				<input type="checkbox" name="searchField" value="pass" />패스워드
+				<!-- 검색어는 일반적인 문자열로 전송된다.  -->
+				<input type="text" name="searchKeyword" />
+				<input type="submit" value="검색" />
+			</td>
+		</tr>
+		</table>
 		</form>
-	
+		
 		<form name="frm"><!-- 자바스크립트를 이용한 삭제 -->
 			<input type="hidden" name="id">
 		</form>
@@ -70,8 +77,7 @@
 				<td>
 					<a href="edit.do?id=${row.id }">수정</a>
 					<%-- <a href="delete.do?id=${row.id }">삭제</a> --%>
-				 	<a href="javascript:;" onclick="deletePost('${row.id }');">삭제</a>
-					<%-- <a href="javascript:ajaxDelete('${row.id }');">삭제</a> --%>
+					<a href="javascript:;" onclick="deletePost('${row.id }');">삭제</a>
 				</td>
 			</tr>
 			</c:forEach>
