@@ -8,6 +8,31 @@
 		<title>리스트</title>
 	</head>
 	<body>
+	<script>
+    function validateSearch() {
+        const keyword = document.getElementById('searchKeyword').value.trim();
+        if (keyword === '') {
+            alert('검색어를 입력하세요');
+            return false; 
+        }
+        return true;
+    }
+	</script>
+	<form method="get" onsubmit="return validateSearch();">
+		<table>
+		<tr>
+			<td align="center">
+				<select name="searchField" id="searchField">
+					<option value="id">아이디</option>
+					<option value="name">이름</option>
+				</select>
+				<input type="text" name="searchKeyword" id="searchKeyword"/>
+				<input type="submit" value="검색하기" />
+			</td>
+		</tr>	
+		</table>	
+	</form>	
+	
 		<h2>회원 리스트</h2>
 		<table border="1">
 			<tr>

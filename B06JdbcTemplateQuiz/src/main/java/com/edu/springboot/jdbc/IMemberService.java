@@ -1,6 +1,7 @@
 package com.edu.springboot.jdbc;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,7 @@ public interface IMemberService
 	public int update(MemberDTO memberDTO);
 	//회원정보삭제(탈퇴)
 	public int delete(MemberDTO memberDTO);
+	
+	public List<MemberDTO> search(MemberDTO memberDTO);
 	
 }

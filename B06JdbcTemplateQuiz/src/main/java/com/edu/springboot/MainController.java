@@ -30,13 +30,20 @@ public class MainController
 	
 	//회원목록
 	@RequestMapping("/list.do")
-	public String member2(Model model)
+	public String member2(MemberDTO memberDTO, Model model)
 	{
-		/*
-		DAO에서 회원레코드를 추가한 List를 반환해주면 이를 Model객체에 
-		저장한 후 View로 포워드한다. 
-		 */
-		model.addAttribute("memberList", dao.select());
+		if (memberDTO.getSearchField() != null && 
+		        memberDTO.getSearchKeyword() != null && 
+		        !memberDTO.getSearchField().isEmpty() && 
+		        !memberDTO.getSearchKeyword().isEmpty()) {
+
+		        // 검색 조건이 있을 경우
+		        model.addAttribute("memberList", dao.search(memberDTO));
+		    } else {
+		        // 전체 목록
+		        model.addAttribute("memberList", dao.select());
+		    }
+		
 		return "list";
 	}
 	

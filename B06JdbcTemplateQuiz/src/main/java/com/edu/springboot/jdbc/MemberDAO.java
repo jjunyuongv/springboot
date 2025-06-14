@@ -3,7 +3,9 @@ package com.edu.springboot.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -134,6 +136,26 @@ public class MemberDAO implements IMemberService
 		int result = jdbcTemplate.update(sql,
 				new Object[] {memberDTO.getId()});
 		return result;
+	}
+	
+	
+	@Override
+	public List<MemberDTO> search(MemberDTO memberDTO) {
+	    String sql = "SELECT * FROM member";
+	    
+	    if (memberDTO.getSearchField() != null && memberDTO.getSearchKeyword() != null &&
+	        !memberDTO.getSearchField().isEmpty() && !memberDTO.getSearchKeyword().isEmpty()) {
+
+	        sql += " WHERE " + memberDTO.getSearchField() + " LIKE ?";
+	        String keyword = "%" + memberDTO.getSearchKeyword() + "%";
+
+	        return jdbcTemplate.query(sql, 
+	            new BeanPropertyRowMapper<>(MemberDTO.class), keyword);
+	    }
+
+	    // 검색조건 없을 경우 전체 목록 반환
+	    return jdbcTemplate.query(sql + " ORDER BY regidate DESC",
+	        new BeanPropertyRowMapper<>(MemberDTO.class));
 	}
 	
 }
