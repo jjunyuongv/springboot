@@ -46,5 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		않는 문자라는것을 명시하기위해 CDATA를 사용해야한다. 
 	-->
 	<!-- WHERE BETWEEN #{start} AND #{end} -->
+	
+	<insert id="write">
+		INSERT INTO myboard (idx, name, title, content)
+		VALUES
+		(seq_board_num.nextval, #{_name}, #{_title}, #{_content})
+	</insert>
 
 </mapper>

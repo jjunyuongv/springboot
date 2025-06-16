@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.springboot.jdbc.BoardDTO;
@@ -79,4 +81,18 @@ public class MainController
 		return "list";       
 	}
 	
+	@GetMapping
+	public String boardWriteGet(Model model) {
+		return "write";
+	}
+	
+	@PostMapping("/write.do")
+	public String boardWriteGetPost(Model model, HttpServletRequest req) {
+		String name = req.getParameter("name");
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		int result = dao.write(name, title, content);
+		System.out.println("글쓰기결과:"+ result);
+		return "redirect:list.do";
+	}
 }
