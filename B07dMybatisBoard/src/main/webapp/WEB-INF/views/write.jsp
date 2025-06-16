@@ -6,6 +6,34 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>write</title>
+		<script type="text/javascript">
+	    function validateForm(f) {
+	      const writer = f.name.value.trim();
+	      if (!writer) {
+	        alert('아이디를 입력하세요');
+	        f.name.focus();
+	        return false;
+	      }
+
+	      const title = f.title.value.trim();
+	      if (!title) {
+	        alert('제목을 입력하세요');
+	        f.title.focus();
+	        return false;
+	      }
+	      
+	      const content = f.content.value.trim();
+	      if (!content) {
+	        alert('내용을 입력하세요');
+	        f.content.focus();
+	        return false;
+	      }
+
+	      return true;
+	    }
+	  </script>
+		
+		
 	</head>
 	<body>
 		<h2>게시판 작성(Mybatis)</h2>
