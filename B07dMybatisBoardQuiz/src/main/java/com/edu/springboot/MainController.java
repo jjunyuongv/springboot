@@ -98,6 +98,8 @@ public class MainController
 	
 	@RequestMapping("/view.do")
 	public String boardView(Model model, BoardDTO boardDTO) {
+		
+		dao.visitCountPlus(boardDTO);
 		boardDTO = dao.view(boardDTO);
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
 		model.addAttribute("boardDTO", boardDTO);

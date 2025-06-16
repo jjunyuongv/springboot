@@ -32,5 +32,6 @@ public interface IBoardService
 	// 삭제
 	public int delete(String idx);
 	
+	public int visitCountPlus(BoardDTO boardDTO);
 	
 }
