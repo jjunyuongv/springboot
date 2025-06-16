@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 		<meta charset="UTF-8">
-		<title>view</title>
+		<title>내용 보기</title>
 		<script>
 		function deletePost(idx){
 			var confirmed = confirm("정말로 삭제하겠습니까?");
@@ -18,9 +18,9 @@
 		</script>
 	</head>
 	<body>
-	<h2>게시판 읽기(Mybatis)</h2>	
+		<h2>게시판 읽기(Mybatis)</h2>	
 		<form name="writeFrm">
-			<input type="hidden" name="idx" value="${boardDTO.idx }" />
+			<input type="hid-den" name="idx" value="${boardDTO.idx }" />
 		</form>
 		<table border="1" width="90%">
 		    <colgroup>
@@ -61,6 +61,5 @@
 		        </td>
 		    </tr>
 		</table>
-		
 	</body>
 </html>

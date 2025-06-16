@@ -81,47 +81,68 @@ public class MainController
 		return "list";       
 	}
 	
-	@GetMapping
-	public String boardWriteGet(Model model) {
+	//입력1 : 작성 페이지 매핑 
+	@GetMapping("/write.do")
+	public String boardWriteGet(Model model)
+	{
 		return "write";
 	}
 	
-	@PostMapping("/write.do")
-	public String boardWriteGetPost(Model model, HttpServletRequest req) {
+	//입력2 : 사용자가 작성한 값으로 입력 처리 
+	@PostMapping("write.do")
+	public String boardWritePost(Model model, HttpServletRequest req)
+	{
+		//request 내장객체를 통해 폼값을 받음 
 		String name = req.getParameter("name");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
+		
+		//서비스 인터페이스 호출 
 		int result = dao.write(name, title, content);
-		System.out.println("글쓰기결과:"+ result);
+//		System.out.println("글쓰기 결과:"+result);
 		return "redirect:list.do";
+		
 	}
 	
+	//열람 : 파라미터로 전달되는 idx를 커맨드객체를 통해 받음 
 	@RequestMapping("/view.do")
-	public String boardView(Model model, BoardDTO boardDTO) {
+	public String boardView(Model model, BoardDTO boardDTO)
+	{
 		boardDTO = dao.view(boardDTO);
+		//가져온 레코드에서 내용부분은 줄바꿈 처리한다. 
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
+		//모델에 저장 후 JSP로 포워드 
 		model.addAttribute("boardDTO", boardDTO);
 		return "view";
 	}
 	
+	//수정1 : 기존 내용을 읽어와서 수정폼에 설정 
 	@GetMapping("/edit.do")
-	public String boardEditGet(Model model, BoardDTO boardDTO) {
+	public String boardEditGet(Model model, BoardDTO boardDTO)
+	{
+		//열람에서 사용했던 메서드를 그대로 호출 
 		boardDTO = dao.view(boardDTO);
 		model.addAttribute("boardDTO", boardDTO);
 		return "edit";
 	}
-	
+	//수정2 : 사용자가 입력한 내용을 전송하여 update처리
 	@PostMapping("/edit.do")
-	public String boardEditPost(BoardDTO boardDTO) {
+	public String boardEditPost(BoardDTO boardDTO)
+	{
+		//수정 후 결과는 int형으로 반환.
 		int result = dao.edit(boardDTO);
-		System.out.println("글수정결과:"+ result);
-		return "redirect:view.do?idx="+ boardDTO.getIdx();
+//		System.out.println("글수정결과:"+result);
+		//수정이 완료되면 열람페이지로 이동. 일련번호가 파라미터로 전달됨. 
+		return "redirect:view.do?idx="+boardDTO.getIdx();
 	}
 	
-	@PostMapping("/delete.do")
-	public String boardDeletePost(HttpServletRequest req) {
+	//삭제 : request 내장객체를 통해 폼값 받음 
+	@PostMapping("delete.do")
+	public String boardDeletePost(HttpServletRequest req)
+	{
 		int result = dao.delete(req.getParameter("idx"));
-		System.out.println("글삭제결과:"+ result);
+//		System.out.println("글삭제결과:"+result);
+		//삭제가 완료되면 목록으로 이동한다. 
 		return "redirect:list.do";
 	}
 }

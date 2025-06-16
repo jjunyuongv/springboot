@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class MainController
 {
-	//DAO 호출을 위한 빈 자동주입. 이 인터페이스를 통해 Mapper를 호출한다. 
 	@Autowired
 	IBoardService dao;
 	
@@ -37,78 +36,67 @@ public class MainController
 	@Value("#{myprops['my.blockPage']}")
 	int propBlockPage;
 	
-	
 	@RequestMapping("/list.do")
 	public String boardList(Model model, HttpServletRequest req, 
-			ParameterDTO parameterDTO) {
-		/* 매개변수는 View로 전달할 데이터 저장을 위한 Model, 요청을 받아 
-		처리하기위한 request내장객체, 커맨드객체로 사용할 DTO를 추가한다. */
-		
-		//게시물의 갯수 카운트(검색어가 있는 경우 DTO객체에 자동으로 저장됨)
+			ParameterDTO parameterDTO) 
+	{
 		int totalCount = dao.getTotalCount(parameterDTO);
 		
-		//페이징을 위한 설정값(하드코딩)
-		//페이지 당 출력할 게시물의 갯수
 //		int pageSize = 2; 
 //		int blockPage = 2; 
-		
 		int pageSize = this.propPageSize; 
-		int blockPage = this.propBlockPage;
+		int blockPage = this.propBlockPage; 
 		System.out.println(this.propPageSize+"-"+this.propBlockPage);
 		
-		/* 목록에 첫 진입시에는 페이지번호가 없으므로 무조건 1로 설정하고, 파라미터로
-		전달된 페이지번호가 있다면 받은후 정수로 변경한다. */
 		int pageNum = (req.getParameter("pageNum")==null 
 			|| req.getParameter("pageNum").equals("")) 
 			? 1 : Integer.parseInt(req.getParameter("pageNum"));
 		
-		//현제 페이지에 출력할 게시물의 구간을 계산한다. 
 		int start = (pageNum-1) * pageSize + 1;
 		int end = pageNum * pageSize;
-		//계산의 결과는 DTO에 저장한다. 
 		parameterDTO.setStart(start);
 		parameterDTO.setEnd(end);
 		
-		//View에서 게시물의 가상번호 계산을 위한 값을 Map에 저장 
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("totalCount", totalCount);
 		maps.put("pageSize", pageSize);
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
 		
-		//DB에서 인출한 게시물의 목록을 Model에 저장 
 		ArrayList<BoardDTO> lists = dao.listPage(parameterDTO);
 		model.addAttribute("lists", lists);
 		
-		//게시판 하단에 출력할 페이지번호를 String으로 저장한 후 Model에 저장
 		String pagingImg =
 			PagingUtil.pagingImg(totalCount, pageSize, 
 				blockPage, pageNum,
 				req.getContextPath()+"/list.do?");
 		model.addAttribute("pagingImg", pagingImg);
 		
-		//View로 포워드한다. 
 		return "list";       
 	}
 	
-	@GetMapping
-	public String boardWriteGet(Model model) {
+	@GetMapping("/write.do")
+	public String boardWriteGet(Model model)
+	{
 		return "write";
 	}
 	
-	@PostMapping("/write.do")
-	public String boardWriteGetPost(Model model, HttpServletRequest req) {
+	@PostMapping("write.do")
+	public String boardWritePost(Model model, HttpServletRequest req)
+	{
 		String name = req.getParameter("name");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
+		
 		int result = dao.write(name, title, content);
-		System.out.println("글쓰기결과:"+ result);
+		System.out.println("글작성결과:"+result);
 		return "redirect:list.do";
+		
 	}
 	
 	@RequestMapping("/view.do")
-	public String boardView(Model model, BoardDTO boardDTO) {
-		
+	public String boardView(Model model, BoardDTO boardDTO)
+	{
 		dao.visitCountPlus(boardDTO);
 		boardDTO = dao.view(boardDTO);
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
@@ -117,23 +105,26 @@ public class MainController
 	}
 	
 	@GetMapping("/edit.do")
-	public String boardEditGet(Model model, BoardDTO boardDTO) {
+	public String boardEditGet(Model model, BoardDTO boardDTO)
+	{
 		boardDTO = dao.view(boardDTO);
 		model.addAttribute("boardDTO", boardDTO);
 		return "edit";
 	}
-	
+
 	@PostMapping("/edit.do")
-	public String boardEditPost(BoardDTO boardDTO) {
+	public String boardEditPost(BoardDTO boardDTO)
+	{
 		int result = dao.edit(boardDTO);
-		System.out.println("글수정결과:"+ result);
-		return "redirect:view.do?idx="+ boardDTO.getIdx();
+		System.out.println("글수정결과:"+result);
+		return "redirect:view.do?idx="+boardDTO.getIdx();
 	}
 	
-	@PostMapping("/delete.do")
-	public String boardDeletePost(HttpServletRequest req) {
+	@PostMapping("delete.do")
+	public String boardDeletePost(HttpServletRequest req)
+	{
 		int result = dao.delete(req.getParameter("idx"));
-		System.out.println("글삭제결과:"+ result);
+		System.out.println("글삭제결과:"+result);
 		return "redirect:list.do";
 	}
 }

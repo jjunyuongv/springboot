@@ -31,6 +31,4 @@ public interface IBoardService
 	public int edit(BoardDTO boardDTO);
 	// 삭제
 	public int delete(String idx);
-	
-	
 }
