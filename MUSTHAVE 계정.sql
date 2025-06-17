@@ -47,5 +47,26 @@ insert into transaction_pay values ('error', 80000);
 
 commit;
 
+-----------------------------------------------
+create table security_admin (
+    user_id varchar2(30) primary key,
+    user_pw varchar2(200) not null,
+    authority varchar2(20) default 'ROLE_USER',
+    enabled number(1) default 1
+);
+
+insert into security_admin values ('user1', '1234', 'ROLE_USER', 1);
+insert into security_admin values ('user2', '1234', 'ROLE_USER', 0);    
+insert into security_admin values ('admin1', '1234', 'ROLE_ADMIN', 1);    
+insert into security_admin values ('admin2', '1234', 'ROLE_ADMIN', 0);   
+commit;
+
+select * from security_admin;
+
+update security_admin set user_pw='$2a$10$47LoTH3WzjOStQPjcYfZ7uE4rH2PnQ.9WZXJ7E7XOJtxxmILdSqYi';
+select * from security_admin;
+commit;
+
+
 
 
