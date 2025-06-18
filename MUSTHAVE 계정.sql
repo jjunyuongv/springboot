@@ -67,6 +67,21 @@ update security_admin set user_pw='$2a$10$47LoTH3WzjOStQPjcYfZ7uE4rH2PnQ.9WZXJ7E
 select * from security_admin;
 commit;
 
+-----------------------------------------------
+DROP TABLE myfile;
+create table myfile (
+    idx number primary key,
+    title varchar2(200) not null,
+    cate varchar2(100),
+    ofile varchar2(300) not null,
+    sfile varchar2(300) not null,
+    postdate date default sysdate not null
+);
+-- 컬럼 사이즈 변경
+ALTER TABLE myfile MODIFY sfile varchar2(300);
+ALTER TABLE myfile MODIFY ofile varchar2(300);
+
+
 
 
 
