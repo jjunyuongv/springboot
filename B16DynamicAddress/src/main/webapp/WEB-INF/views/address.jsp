@@ -11,33 +11,35 @@
 		
 		<script>
 		$(function(){
-			$.ajax({
-				url : ".getGugun.do",
-				type : "get",
-				contentType : "text/html;charset:utf-8;",
-				data : {
-					sido : $('#sido option:selected').val()
-				},
-				dataType : "json",
-				success : function(d){
-					console.log(d);
-					var optionStr = "";
-					optionStr += "<option value=''>";
-					optionStr += "-구군을 선택하세요-";
-					optionStr += "</option>";
-					$.each(d.result, function(index, data){
-						optionStr += '<option value="'+data.gugun+'">';
-						optionStr += data.gugun;
+			$('#sido').change(function(){
+				$.ajax({
+					url : "/getGugun.do",
+					type : "get",
+					contentType : "text/html;charset:utf-8;",
+					data : {
+						sido : $('#sido option:selected').val()
+					},
+					dataType : "json",
+					success : function(d){
+						console.log(d);
+						var optionStr = "";
+						optionStr += "<option value=''>";
+						optionStr += "-구군을 선택하세요-";
 						optionStr += "</option>";
-					});
-					$('#gugun').html(optionStr);
-				},
-				error : function(e){
-					alert("오류발생:"+e.status+":"+e.statusText);
-				}
-			});
+						$.each(d.result, function(index, data){
+							optionStr += '<option value="'+data.gugun+'">';
+							optionStr += data.gugun;
+							optionStr += "</option>";
+						});
+						$('#gugun').html(optionStr);
+					},
+					error : function(e){
+						alert("오류발생:"+e.status+":"+e.statusText);
+					}
+				});
 		});
 	});
+	
 		</script>
 	</head>
 	<body>
