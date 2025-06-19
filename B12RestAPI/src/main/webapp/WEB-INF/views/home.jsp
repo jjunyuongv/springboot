@@ -1,79 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>  
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>home 화면</title>
+		<!-- bootstrap 링크 -->
+		<link rel="stylesheet" href="/webjars/bootstrap/5.3.6/css/bootstrap.css" />
+		<script src="/webjars/bootstrap/5.3.6/js/bootstrap.bundle.js"></script>
+		<!-- jQuery 링크 -->
+		<script src="/webjars/jquery/3.7.1/jquery.js"></script>
 	</head>
 	<body>
-		<h2>JSON의 4가지 형식 이해하기</h2>
+		<h2>스프링 부트 프로젝트 셋팅하기</h2>
 		<ul>
 			<li><a href="/">루트</a></li>
-			<li><a href="/restApi01.do">순수 객체*</a></li>
-			<li><a href="/restApi02.do">순수 배열*</a></li>
-			<li><a href="/restApi03.do">배열을 포함한 객체***</a></li>
-			<li><a href="/restApi04.do">객체을 포함한 배열**</a></li>
+			<li><a href="/json.do">simple-json 라이브러리 사용하기</a></li>
+			<li><a href="/jsonQuiz.do">복잡한 JSON 만들어보기</a></li>
 		</ul>
 		
-		<h2>Rest API 만들어보기</h2>
-		<style>
-		fieldset{width: 400px;}
-		</style>
-		<fieldset>
-			<legend>페이지별 레코드 조회</legend>
-			<form action="restBoardList.do">
-				<select name="pageNum">
-				<c:forEach begin="1" end="10" var="p">
-					<option value="${p}">${p}</option>
-				</c:forEach>
-				</select>
-				<input type="submit" value="요청하기" />
-			</form>
-		</fieldset>
+		<h2>Webjars - 부트스트랩</h2>
+		<button type="button" class="btn">Basic</button>
+		<button type="button" class="btn btn-primary">Primary</button>
+		<button type="button" class="btn btn-secondary">Secondary</button>
+		<button type="button" class="btn btn-success">Success</button>
+		<button type="button" class="btn btn-info">Info</button>
+		<button type="button" class="btn btn-warning">Warning</button>
+		<button type="button" class="btn btn-danger">Danger</button>
+		<button type="button" class="btn btn-dark">Dark</button>
+		<button type="button" class="btn btn-light">Light</button>
+		<button type="button" class="btn btn-link">Link</button>
 		
-		<fieldset>
-			<legend>2개 이상의 단어 검색</legend>
-			<form action="restBoardSearch.do">
-				<select name="searchField">
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-				</select>
-				<input type="text" name="searchWord" />
-				<input type="submit" value="요청하기" />
-			</form>
-		</fieldset>
-		
-		<fieldset>
-			<legend>상세 내용 조회</legend>
-			<form action="restBoardView.do">
-				일련번호 : <input type="number" name="num" />
-				<input type="submit" value="요청하기" />
-			</form>
-		</fieldset>
-		
-		<!-- 퀴즈] 아래 폼을 이용해서 작성하기를 구현하시오. 
-			성공 : {'result':1}
-			실패 : {'result':0}
-		반환하면 된다. -->
-		<fieldset>
-			<legend>[퀴즈]작성하기</legend>
-			<form method="post" action="restBoardWrite.do">
-				아이디:<input type="text" name="id" /><br/>
-				제목:<input type="text" name="title" /><br/>
-				내용: <textarea name="content" cols="30" rows="10"></textarea><br/>
-				<input type="submit" value="요청하기" />
-			</form>
-		</fieldset>
-		
-		<h2>Ajax로 게시판 구현</h2>
-		<ul>
-			<li><a href="/boardList.do" >목록</a></li>
-			<li><a href="/boardView.do" >내용보기</a></li>
-			<li><a href="/boardWrite.do" >내용작성</a></li>
-			<!-- 퀴즈] 목록+내용보기 2가지를 합쳐서 구현하시오. -->
-			<li><a href="/ajaxBoardList.do">목록+내용보기</a></li>
-		</ul>
+		<h2>Webjars - JQuery</h2>
+		<button type="button" id="myBtn" class="btn btn-warning">
+			클릭하세요
+		</button>
+		<script>
+		$(function(){
+			$('#myBtn').click(function(){
+				alert("jQuery 동작하나요?")
+			});		
+		});
+		</script>
 	</body>
 </html>

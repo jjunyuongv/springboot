@@ -13,6 +13,7 @@ spring.mail.port=465
 spring.mail.username=jjunyuongv@gmail.com
 spring.mail.password=wpwi cgrr sfuk oltk
 
+# 메일발송에 필요한 여러가지 속성값 설정. SSL, 디버그 등
 spring.mail.properties.mail.debug=true
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.ssl.enable=true

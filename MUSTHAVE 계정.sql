@@ -81,7 +81,15 @@ create table myfile (
 ALTER TABLE myfile MODIFY sfile varchar2(300);
 ALTER TABLE myfile MODIFY ofile varchar2(300);
 
-
+------------------------------------
+create table zipcode(
+    zipcode char(7),
+    sido varchar2(10),
+    gugun varchar2(50),
+    dong varchar2(200),
+    bunji varchar2(50),
+    seq number 
+);
 
 
 

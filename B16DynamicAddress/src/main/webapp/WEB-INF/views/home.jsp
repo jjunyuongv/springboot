@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>  
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,11 +7,10 @@
 		<title>home 화면</title>
 	</head>
 	<body>
-		<h2>JSON의 4가지 형식 이해하기</h2>
+		<h2>동적셀렉트 with Mybatis</h2>
 		<ul>
 			<li><a href="/">루트</a></li>
-			<li><a href="./dynamicAddress.do">검색바로가기</a></li>
+			<li><a href="/dynamicAddress.do">바로 가기</a></li>
 		</ul>
-		
 	</body>
 </html>
