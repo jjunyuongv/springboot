@@ -28,7 +28,7 @@
 				type : "get",
 				data : {
 					keyword : $('#keyword').val(),
-					startNum : $('#startNum').val()
+					startNum : $('#startNum option:selected').val()
 				},
 				dataType : "json",
 				success : sucFuncJson,
@@ -68,6 +68,13 @@
 	    <div>
 	        <form id="searchFrm">
 	            한 페이지에 10개씩 출력됨 <br />
+	            <select id="startNum">
+	            	<option value="1" >1페이지</option>
+	            	<option value="11" >2페이지</option>
+	            	<option value="21" >3페이지</option>
+	            	<option value="31" >4페이지</option>
+	            	<option value="41" >5페이지</option>
+	            </select>
 	            <input type="number" id="startNum" step="10" 
 	            			value="1">
 	            <input type="text" id="keyword" 
