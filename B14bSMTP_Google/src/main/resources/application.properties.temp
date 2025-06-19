@@ -1,0 +1,19 @@
+spring.application.name=B14bSMTP_Google
+
+#포트설정
+server.port=8081
+
+#JSP설정
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+# SMPT 설정
+spring.mail.host=smtp.naver.com
+spring.mail.port=465
+spring.mail.username=jjunyuongv@gmail.com
+spring.mail.password=wpwi cgrr sfuk oltk
+
+spring.mail.properties.mail.debug=true
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.ssl.enable=true
+spring.mail.properties.mail.smtp.ssl.trust=smtp.naver.com

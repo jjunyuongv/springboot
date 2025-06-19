@@ -7,7 +7,7 @@
 		<title>chatWindow</title>
 		<script>
 		var webSocket
-			= new WebSocket("ws://192.168.0.19:8081/myChatServer");
+			= new WebSocket("ws://192.168.0.25:8081/myChatServer");
 		var chatWindow, chatMessage, chatId;
 		
 		window.onload = function() {
