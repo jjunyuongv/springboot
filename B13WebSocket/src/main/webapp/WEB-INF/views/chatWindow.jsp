@@ -7,7 +7,7 @@
 		<title>chatWindow</title>
 		<script>
 		var webSocket
-			= new WebSocket("ws://localhost:8081/myChatServer");
+			= new WebSocket("ws://192.168.0.19:8081/myChatServer");
 		var chatWindow, chatMessage, chatId;
 		
 		window.onload = function() {
@@ -34,15 +34,15 @@
 			}
 		}
 		
-		webSocket.onopen = finction(event) {
+		webSocket.onopen = function(event) {
 			chatWindow.innerHTML += "웹소켓 서버에 연결되었습니다.<br/>";
 		};
 		
-		webSocket.onclose = finction(event) {
+		webSocket.onclose = function(event) {
 			chatWindow.innerHTML += "웹소켓 서버가 종료되었습니다.<br/>";
 		};
 		
-		webSocket.onerror = finction(event) {
+		webSocket.onerror = function(event) {
 			alert(event.data);
 			chatWindow.innerHTML += "채팅 중 에러가 발생하였습니다.<br/>";
 		};

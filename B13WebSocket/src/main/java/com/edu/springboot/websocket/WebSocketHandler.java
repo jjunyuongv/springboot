@@ -1,5 +1,6 @@
 package com.edu.springboot.websocket;
 
+import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class WebSocketHandler extends TextWebSocketHandler
 				try
 				{
 					arg.getValue().sendMessage(message);
-				} catch (Exception e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}

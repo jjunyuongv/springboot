@@ -11,7 +11,7 @@
 		<h2>JSON의 4가지 형식 이해하기</h2>
 		<ul>
 			<li><a href="/">루트</a></li>
-			<li><a href="/chatMain.do">순수 객체*</a></li>
+			<li><a href="/chatMain.do">멀티채팅</a></li>
 		</ul>
 		
 	</body>
