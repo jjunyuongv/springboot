@@ -111,4 +111,22 @@ create sequence seq_board_num
     nocycle
     nocache;
 
+--------------------------------------------
+CREATE TABLE global_facility (
+	idx number PRIMARY KEY ,
+	hp_sido varchar2(20)   ,
+	hp_gugun varchar2(40)   ,
+	hp_genre number(2) ,
+	hp_genre_name varchar2(30)   ,
+	hp_name varchar2(100)   ,
+	hp_url varchar2(400)   ,
+	hp_explain varchar2(400)   ,
+	hp_tel varchar2(20)   ,
+	hp_addr varchar2(100)   ,
+	hp_naver_x varchar2(10)   ,
+	hp_naver_y varchar2(10)   ,
+	hp_latitude varchar2(20)   ,
+	hp_longitude varchar2(20)   
+);
+
 
