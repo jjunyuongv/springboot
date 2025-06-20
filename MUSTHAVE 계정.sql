@@ -91,5 +91,24 @@ create table zipcode(
     seq number 
 );
 
+-------------------------------------
+DROP TABLE board;
+
+
+create table board (
+    num number primary key, --일련번호
+    title varchar2(200) not null, --제목
+    content varchar2(2000) not null, --내용
+    id varchar2(10) not null, --작성자의 아이디
+    postdate date default sysdate not null, --작성일
+    visitcount number(6) --조회수 
+);
+create sequence seq_board_num 
+    increment by 1
+    start with 1
+    minvalue 1
+    nomaxvalue
+    nocycle
+    nocache;
 
 
