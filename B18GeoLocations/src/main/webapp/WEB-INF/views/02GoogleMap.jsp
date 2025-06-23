@@ -18,7 +18,7 @@
 		//구글맵 초기화 및 마커설정 
 		function initMap() {
 			//맵의 중심위치를 설정(1번 예제에서 나온 위경도로 변경 후 확인)
-			var uluru = {lat:37.4931456, lng:126.877696};
+			var uluru = {lat:37.556604, lng:126.937127};
 			//구글맵 초기화(맵 출력을 위한 DOM과 Zoom레벨 설정)
 			var map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 17,

@@ -4,35 +4,36 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>naverSmartEditor</title>
-		
+		<title>네이버 스마트 에디터</title>
+		<script type="text/javascript" src="./se2/js/HuskyEZCreator.js"></script>
 		<script type="text/javascript">
 		var oEditors = [];
-		widow.onload = function() {
-			nhn.husky.EZcreator.createInIFrame({
+		window.onload = function(){
+			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: oEditors,
-				elPaceHolder:
-				sSkinURI:
-				fCreator:
+				elPlaceHolder: "contents",
+				sSkinURI: "./se2/SmartEditor2Skin.html",
+				fCreator: "createSEditor2"
 			});
 		}
 		
-		function validateForm(f) {
+		function validateForm(f){
 			if(f.subject.value==''){
 				alert('제목을 입력하세요');
 				f.subject.focus();
 				return false;
 			}
-			
+			// 에디터의 내용이 textarea에 적용된다.
 			oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+			// 에디터의 내용에 대한 값 검증은 이곳에서
 			let contents = document.getElementById("contents").value;
-			if(contents=='') {
+			if(contents=='<p>&nbsp;</p>'){
 				alert('내용을 입력하세요');
-				oEditors.getById["contents"].exec("FOCUS")
+				oEditors.getById["contents"].exec("FOCUS");
 				return false;
 			}
-			console.log("contents", contents);
-			return false;
+			//console.log("contents", contents);
+			//return false;
 		}
 		</script>
 	</head>
@@ -54,7 +55,7 @@
 				<td>
 					<!-- 에디터에 기본으로 삽입할 글(수정 모드)이 없다면 
 					value 값을 지정하지 않으시면 됩니다. -->
-					<textarea name="contents" id="contents" rows="10" cols="70"></textarea>
+					<textarea name="contents" id="contents" rows="10" cols="100"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -64,6 +65,5 @@
 			</tr>
 		</table>
 		</form>
-		
 	</body>
 </html>
