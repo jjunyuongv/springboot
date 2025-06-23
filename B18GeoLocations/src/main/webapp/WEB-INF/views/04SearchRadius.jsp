@@ -9,11 +9,14 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 		<style>
-			#map{
-				width:100%; height:700px;
-			}
-		</style>
+		#map{
+			width:100%; height:700px;
+		}
+	</style>
+	
+	<!-- 검색하는 반경에 따른 맵의 줌 레벨 설정 -->
 	<c:choose>
 		<c:when test="${param.distance eq 1 }">
 			<c:set var="zoomLevel" value="15" />
@@ -131,14 +134,14 @@
 		}
 	}
 	</script>
+
 	
 	</head>
 	<body>
 	<div class="container">
 
 	<h2>내위치기반 반경검색하기</h2>
-	
-		<span id="result" style="color:red; font-size:1.5em; font-weight:bold;"></span>
+	<span id="result" style="color:red; font-size:1.5em; font-weight:bold;"></span>
 		<fieldset>
 			<legend>검색조건 ${resultCount }</legend>		
 			<form name="searchFrm">
@@ -168,6 +171,5 @@
 		<div id="map"></div>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=${apiKey }"></script>
 	</div>
-	
 	</body>
 </html>

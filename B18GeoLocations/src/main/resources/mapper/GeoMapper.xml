@@ -8,7 +8,7 @@
 	<select id="searchCount" resultType="int">
 		SELECT COUNT(*)
 		FROM global_facility
-		WHERE trunc(to_number(DISTANACE_WGS84(#{param2}, #{param3},
+		WHERE trunc(to_number(DISTANCE_WGS84(#{param2}, #{param3},
 				hp_latitude, hp_longitude)),5)<![CDATA[<=]]>#{param1}
 	</select>
 	
@@ -19,11 +19,11 @@
 				SELECT			
 					hp_name, hp_sido, hp_gugun, hp_addr, hp_url,
 					hp_latitude, hp_longitude,
-					trunc(to_number(DISTNACE_WGS84(#{param2}, #{param3},
+					trunc(to_number(DISTANCE_WGS84(#{param2}, #{param3},
 						hp_latitude, hp_longitude)),5) AS disKM
 				FROM global_facility
-				WHERE trunc(to_number(DISTNACE_WGS84(#{param2}, #{param3},
-					hp_latitude, hp_longitude)),5)<![CDATA[<=]]>#{param1},
+				WHERE trunc(to_number(DISTANCE_WGS84(#{param2}, #{param3},
+					hp_latitude, hp_longitude)),5)<![CDATA[<=]]>#{param1}
 				ORDER BY disKM ASC
 			) Tb
 		)
