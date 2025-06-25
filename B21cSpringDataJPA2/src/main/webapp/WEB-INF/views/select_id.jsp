@@ -5,15 +5,19 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>데이터 입력</title>
+		<title>데이터 조회</title>
 	</head>
 	<body>
-		<h2>Spring boot 프로젝트</h2>
+		<%
+			out.println("Spring JPA #2 - Select By Id");
+		%>
 		<ul>
 			<li><a href="/">루트</a></li>
 		</ul>
 		
-		<h2>Spring Data JPA - select</h2>
-		<p>삭제되었습니다.</p>
+			아이디 : ${member.id } <br/>
+			이  름 : $member.name } <br/>
+			이메일 : ${member.email } <br/>
+			<hr />
 	</body>
 </html>

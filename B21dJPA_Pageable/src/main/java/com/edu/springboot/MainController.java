@@ -46,9 +46,20 @@ public class MainController
 		Page<Member> result = memberService
 				.selectNameLike(name, pageable);
 		List<Member> content = result.getContent();
+		long totalElements = result.getTotalElements();
+		int totalPages = result.getTotalPages();
+		int size = result.getSize();
+		int pageNumber = result.getNumber() + 1;
+		int numberOfElements = result.getNumberOfElements();
 		
+		model.addAttribute("members", content);
+		model.addAttribute("totalElements", totalElements );
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("size", size);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("numberOfElements", numberOfElements);
 		
-		
+		return "member_list";
 	}
 	
 	

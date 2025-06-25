@@ -26,6 +26,7 @@
                리스트 조회 - Name Like Name Desc</a></li>
          <li><a href="./selectByNameLikeOrder.do?name=김">
                리스트 조회 - Name Like Name Desc(Sort사용)</a></li>
+      	<li><a href="./main">main</a></li>
       </ul>
    </body>
 </html>

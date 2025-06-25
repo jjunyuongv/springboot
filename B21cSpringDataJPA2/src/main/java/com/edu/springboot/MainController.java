@@ -20,7 +20,8 @@ public class MainController
 	@GetMapping("/")
 	public String home()
 	{
-		return "home";
+//		return "home";
+		return "main";
 	}
 	
 	@Autowired

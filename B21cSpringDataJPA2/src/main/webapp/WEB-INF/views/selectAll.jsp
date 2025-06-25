@@ -8,18 +8,16 @@
 		<title>데이터 입력</title>
 	</head>
 	<body>
+		<%
+			out.println("Spring JPA #2");
+		%>
 		<h2>Spring boot 프로젝트</h2>
 		<ul>
 			<li><a href="/">루트</a></li>
 		</ul>
-		
-		<h2>Spring Data JPA - 전체 select</h2>
-		<c:forEach items="${members }" var="row">
-		<p>
-			아이디 : ${row.id } <br/>
-			이름 : ${row.username } <br/>
-			날짜 : ${row.createDate } <br/>
-		</p>
-		</c:forEach>
+			아이디 : ${member.id } <br/>
+			이름 : $member.name } <br/>
+			날짜 : ${member.email } <br/>
+			<hr />
 	</body>
 </html>
